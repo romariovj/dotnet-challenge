@@ -18,6 +18,14 @@ namespace DotnetChallenge.Infrastructure.Configurations
             _mapper = mapper;
         }
 
+        public async Task<TDomain?> CreateAsync(TDomain entityDomain)
+        {
+            var entityDb = _mapper.Map<TDatabase>(entityDomain);
+            _context.Set<TDatabase>().Add(entityDb);
+            await _context.SaveChangesAsync();
+            return _mapper?.Map<TDomain>(entityDomain);
+        }
+
         public async Task<IReadOnlyList<TDomain>> FindAllAsync()
         {
             var entities = await _context.Set<TDatabase>().AsNoTracking().ToListAsync();
@@ -30,22 +38,27 @@ namespace DotnetChallenge.Infrastructure.Configurations
             return _mapper?.Map<TDomain>(entity);
         }
 
-        public async Task<TDomain?> SaveAsync(TDomain entityDomain)
+        public async Task<TDomain?> UpdateAsync(TDomain entityDomain)
         {
             var entityDb = _mapper.Map<TDatabase>(entityDomain);
+            var existingDatabaseEntity = await _context.Set<TDatabase>().FindAsync(GetId(entityDb));
 
-
-            EntityState entityState = _context.Entry(entityDb).State;
-
-            _ = entityState switch
+            if (existingDatabaseEntity != null)
             {
-                EntityState.Detached => _context.Set<TDatabase>().Add(entityDb),
-                EntityState.Modified => _context.Set<TDatabase>().Update(entityDb),
-            };
+                _context.Entry(existingDatabaseEntity).CurrentValues.SetValues(entityDb);
+                await _context.SaveChangesAsync();
+            }
 
-            await _context.SaveChangesAsync();
-            return entityDomain;
-        } 
+            return _mapper.Map<TDomain>(existingDatabaseEntity);
+
+        }
+
+        private int GetId(TDatabase entity)
+        {
+            var propertyInfo = typeof(TDatabase).GetProperty("Id");
+            return (int)propertyInfo.GetValue(entity);
+        }
+
     }
 
 }

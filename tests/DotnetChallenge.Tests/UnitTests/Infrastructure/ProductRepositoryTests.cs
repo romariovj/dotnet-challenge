@@ -36,6 +36,7 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
             _mapper = mapperConfiguration.CreateMapper();
 
         }
+        
 
         [Fact]
         public async Task FindAllAsync_WithExistingItems_ReturnListOfProducts()
@@ -43,8 +44,7 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
             // Arrange
             var products = GetProducts();
 
-            _context.Products.AddRange(products);
-            _context.SaveChanges();
+            await InitContext();
 
             var repository = new ProductRepository(_context, _mapper);
 
@@ -57,6 +57,7 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
                 products,
                 options => options.ComparingByMembers<Product>()
             );
+            actualItems.Should().HaveCount(3);
         }
 
        
@@ -107,9 +108,46 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
         }
 
         [Fact]
+        public async Task SaveAsync_WithExistingItem_ReturnProductUpdated()
+        {
+            // Arrange
+            await InitContext();
+
+            var product = new Product()
+            {
+                Id = 1,
+                Name = "Coca-Cola Updated",
+                Description = "New Description",
+                Price = 50m,
+                Status = 0,
+                Stock = 14
+            };
+            var repository = new ProductRepository(_context, _mapper);
+
+            // Act
+            var actualProduct = await repository.UpdateAsync(product);
+            var actualProducts = await repository.FindAllAsync();
+
+            // Assert
+            actualProduct.Should().NotBeNull();
+            actualProduct.Should().BeEquivalentTo
+                (
+                    product,
+                    options => options.ComparingByMembers<Product>()
+                );
+            actualProducts.Should().HaveCount(3);
+            actualProduct.Should().BeEquivalentTo
+                (
+                    actualProducts[0],
+                    options => options.ComparingByMembers<Product>()
+                );
+        }
+
+        [Fact]
         public async Task SaveAsync_WithValidItem_ReturnProductSaved()
         {
             // Arrange
+            await InitContext();
             var product = new Product() 
             {
                  Id = 5,
@@ -122,7 +160,8 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
             var repository = new ProductRepository(_context, _mapper);
 
             // Act
-            var actualProduct = await repository.SaveAsync(product);
+            var actualProduct = await repository.CreateAsync(product);
+            var actualProducts = await repository.FindAllAsync();
 
             // Assert
             actualProduct.Should().NotBeNull();
@@ -131,8 +170,25 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
                     product,
                     options => options.ComparingByMembers<Product>()
                 );
+            actualProduct.Should().BeEquivalentTo
+                (
+                    actualProducts[3],
+                    options => options.ComparingByMembers<Product>()
+                );
+            actualProducts.Should().HaveCount( 4 );
         }
 
+        private async Task InitContext()
+        {
+            var allEntities = await _context.Products.ToListAsync();
+            _context.Products.RemoveRange(allEntities);
+            await _context.SaveChangesAsync();
+
+            var entities = GetProducts();
+            await _context.Products.AddRangeAsync( entities );
+            _context.SaveChanges();
+        }
+        
         private List<ProductEntity> GetProducts()
         {
             return new List<ProductEntity>
@@ -142,5 +198,7 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
                 new ProductEntity { Id = 3, Name= "Fanta", Description="Soda", Price=3.5m, Status=1, Stock=30},
             };
         }
+
+        
     }
 }

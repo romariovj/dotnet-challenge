@@ -10,6 +10,7 @@ namespace DotnetChallenge.Domain.Repositories
     {
         Task<IReadOnlyList<TDomain>> FindAllAsync();
         Task<TDomain?> FindByIdAsync(ID id);
-        Task<TDomain?> SaveAsync(TDomain entity);
+        Task<TDomain?> CreateAsync(TDomain entity);
+        Task<TDomain?> UpdateAsync(TDomain entity);
     }
 }
