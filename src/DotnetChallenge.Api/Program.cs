@@ -1,5 +1,7 @@
 
+using DotnetChallenge.Application;
 using DotnetChallenge.Infrastructure;
+using System.Reflection;
 
 namespace DotnetChallenge.Api
 {
@@ -10,8 +12,9 @@ namespace DotnetChallenge.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 
             builder.Services.AddControllers();

@@ -29,11 +29,12 @@
     <Folder Include="IntegrationTests\Api\" />
     <Folder Include="IntegrationTests\Application\" />
     <Folder Include="IntegrationTests\Infrastructure\" />
-    <Folder Include="UnitTests\Application\" />
     <Folder Include="UnitTests\Domain\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\DotnetChallenge.Api\DotnetChallenge.Api.csproj" />
+    <ProjectReference Include="..\..\src\DotnetChallenge.Application\DotnetChallenge.Application.csproj" />
     <ProjectReference Include="..\..\src\DotnetChallenge.Infrastructure\DotnetChallenge.Infrastructure.csproj" />
   </ItemGroup>
 
