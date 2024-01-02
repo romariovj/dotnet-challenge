@@ -1,5 +1,6 @@
 ﻿using DotnetChallenge.Application.Commands;
 using DotnetChallenge.Application.Dtos;
+using DotnetChallenge.Application.GetProductById.Queries;
 using DotnetChallenge.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

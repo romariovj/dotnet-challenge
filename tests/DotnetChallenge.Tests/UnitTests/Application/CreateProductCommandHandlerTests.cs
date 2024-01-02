@@ -18,7 +18,7 @@ namespace DotnetChallenge.Tests.UnitTests.Application
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(c =>
             {
-                c.AddProfile<AutoMapperProfile>();
+                c.AddProfile<TestAutoMapperProfile>();
             });
 
             _mapper = mapperConfiguration.CreateMapper();
@@ -34,7 +34,11 @@ namespace DotnetChallenge.Tests.UnitTests.Application
                 Name= "Producto",
                 Description="Descripcion",
                 Price=15.2m,
-                Status=1,
+                Status=new ProductStatus()
+                {
+                    Id=1,
+                    Name="Active"
+                },
                 Stock=25
             };
 

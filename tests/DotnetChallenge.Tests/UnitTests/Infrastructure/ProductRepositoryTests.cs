@@ -6,12 +6,6 @@ using DotnetChallenge.Infrastructure.Mappings;
 using DotnetChallenge.Infrastructure.Persistences;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotnetChallenge.Tests.UnitTests.Infrastructure
 {
@@ -119,7 +113,10 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
                 Name = "Coca-Cola Updated",
                 Description = "New Description",
                 Price = 50m,
-                Status = 0,
+                Status = new ProductStatus()
+                {
+                    Id= 0
+                },
                 Stock = 14
             };
             var repository = new ProductRepository(_context, _mapper);
@@ -154,7 +151,7 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
                  Name="Car",
                  Description="",
                  Price=25m,
-                 Status=1,
+                 Status=new ProductStatus() { Id = 1 },
                  Stock=15
             };
             var repository = new ProductRepository(_context, _mapper);
@@ -184,12 +181,12 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
             _context.Products.RemoveRange(allEntities);
             await _context.SaveChangesAsync();
 
-            var entities = GetProducts();
+            var entities = GetEntityProducts();
             await _context.Products.AddRangeAsync( entities );
             _context.SaveChanges();
         }
         
-        private List<ProductEntity> GetProducts()
+        private List<ProductEntity> GetEntityProducts()
         {
             return new List<ProductEntity>
             {
@@ -199,6 +196,16 @@ namespace DotnetChallenge.Tests.UnitTests.Infrastructure
             };
         }
 
-        
+        private List<Product> GetProducts()
+        {
+            return new List<Product>
+            {
+                new Product { Id = 1, Name= "Coca-Cola", Description="Soda", Price=5.5m, Status=new ProductStatus{Id=1}, Stock=25},
+                new Product { Id = 2, Name= "Inka-Cola", Description="Soda", Price=4.5m, Status=new ProductStatus{Id=1}, Stock=20},
+                new Product { Id = 3, Name= "Fanta", Description="Soda", Price=3.5m, Status=new ProductStatus { Id = 1 }, Stock=30},
+            };
+        }
+
+
     }
 }

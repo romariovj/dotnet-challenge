@@ -1,6 +1,7 @@
 ﻿using DotnetChallenge.Api.Controllers;
 using DotnetChallenge.Application.Commands;
 using DotnetChallenge.Application.Dtos;
+using DotnetChallenge.Application.GetProductById.Queries;
 using DotnetChallenge.Application.Queries;
 using FluentAssertions;
 using MediatR;
@@ -41,7 +42,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
         {
             // Arrange
             var products = new List<ProductDto>() {
-                             new ProductDto(){ Id= 1, Name="Product1", Price=12.5m}
+                             new ProductDto(){ ProductId= 1, Name="Product1", Price=12.5m}
                         };
 
             _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetAllProductsQuery>(), default))
@@ -66,7 +67,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
         {
             // Arrange
             var productDto = new ProductDto() {
-                Id = 1,
+                ProductId = 1,
                 Name = "Producto",
                 Price = 15.2m,
             };
@@ -98,7 +99,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
             // Arrange
             var productDto = new ProductDto()
             {
-                Id = 1,
+                ProductId = 1,
                 Name = "Producto",
                 Price = 15.2m,
             };
@@ -150,7 +151,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
         public async Task GetProductById_WithExistingItem_ReturnOK()
         {
             // Arrange
-            var product = new ProductDto() { Id = 1, Name = "Product1", Price = 12.5m };
+            var product = new ProductDto() { ProductId = 1, Name = "Product1", Price = 12.5m };
 
             _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetProductByIdQuery>(), default))
                         .ReturnsAsync(product);

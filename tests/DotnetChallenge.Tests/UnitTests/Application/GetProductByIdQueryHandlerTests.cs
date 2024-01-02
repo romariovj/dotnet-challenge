@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using DotnetChallenge.Application.Handlers;
+using DotnetChallenge.Application.GetProductById.Handlers;
+using DotnetChallenge.Application.GetProductById.Queries;
 using DotnetChallenge.Application.Mappings;
-using DotnetChallenge.Application.Queries;
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using FluentAssertions;
@@ -18,7 +18,7 @@ namespace DotnetChallenge.Tests.UnitTests.Application
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(c =>
             {
-                c.AddProfile<AutoMapperProfile>();
+                c.AddProfile<TestAutoMapperProfile>();
             });
 
             _mapper = mapperConfiguration.CreateMapper();
@@ -51,7 +51,11 @@ namespace DotnetChallenge.Tests.UnitTests.Application
                 Name="Product",
                 Description="Descripcion",
                 Price=15m,
-                Status=0,
+                Status= new ProductStatus()
+                {
+                    Id = 1,
+                    Name = "Active"
+                },
                 Stock=14
             };
 

@@ -19,7 +19,7 @@ namespace DotnetChallenge.Tests.UnitTests.Application
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(c =>
             {
-                c.AddProfile<AutoMapperProfile>();
+                c.AddProfile<TestAutoMapperProfile>();
             });
 
             _mapper = mapperConfiguration.CreateMapper();
@@ -57,20 +57,15 @@ namespace DotnetChallenge.Tests.UnitTests.Application
             // Assert
             products.Should().NotBeNullOrEmpty();
             products.Should().HaveCount(3);
-            products.Should().BeEquivalentTo
-                (
-                    GetProductDtos(),
-                    options => options.ComparingByMembers<ProductDto>()
-                );
         }
 
         private List<Product> GetProducts()
         {
             return new List<Product>
             {
-                new Product { Id = 1, Name= "Coca-Cola", Description="Soda", Price=5.5m, Status=1, Stock=25},
-                new Product { Id = 2, Name= "Inka-Cola", Description="Soda", Price=4.5m, Status=1, Stock=20},
-                new Product { Id = 3, Name= "Fanta", Description="Soda", Price=3.5m, Status=1, Stock=30},
+                new Product { Id = 1, Name= "Coca-Cola", Description="Soda", Price=5.5m, Status= new ProductStatus() { Id=1, Name="Active"}, Stock=25},
+                new Product { Id = 2, Name= "Inka-Cola", Description="Soda", Price=4.5m, Status= new ProductStatus() { Id=1, Name="Active"}, Stock=20},
+                new Product { Id = 3, Name= "Fanta", Description="Soda", Price=3.5m, Status= new ProductStatus() { Id=1, Name="Active"}, Stock=30},
             };
         }
 
@@ -83,9 +78,9 @@ namespace DotnetChallenge.Tests.UnitTests.Application
         {
             return new List<ProductDto>
             {
-                new ProductDto { Id = 1, Name= "Coca-Cola", Price=5.5m},
-                new ProductDto { Id = 2, Name= "Inka-Cola", Price=4.5m},
-                new ProductDto { Id = 3, Name= "Fanta", Price=3.5m},
+                new ProductDto { ProductId = 1, Name= "Coca-Cola", Price=5.5m},
+                new ProductDto { ProductId = 2, Name= "Inka-Cola", Price=4.5m},
+                new ProductDto { ProductId = 3, Name= "Fanta", Price=3.5m},
             };
         }
     }

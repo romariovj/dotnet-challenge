@@ -6,11 +6,6 @@ using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using FluentAssertions;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotnetChallenge.Tests.UnitTests.Application
 {
@@ -23,7 +18,7 @@ namespace DotnetChallenge.Tests.UnitTests.Application
         {
             MapperConfiguration mapperConfiguration = new MapperConfiguration(c =>
             {
-                c.AddProfile<AutoMapperProfile>();
+                c.AddProfile<TestAutoMapperProfile>();
             });
 
             _mapper = mapperConfiguration.CreateMapper();
@@ -39,7 +34,7 @@ namespace DotnetChallenge.Tests.UnitTests.Application
                 Name = "Producto Modificado",
                 Description = "Descripcion Modificado",
                 Price = 15.2m,
-                Status = 1,
+                Status = new ProductStatus() { Id = 1, Name = "Active" },
                 Stock = 25
             };
 

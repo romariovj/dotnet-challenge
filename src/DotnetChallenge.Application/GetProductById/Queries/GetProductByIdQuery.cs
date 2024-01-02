@@ -1,7 +1,7 @@
 ﻿using DotnetChallenge.Application.Dtos;
 using MediatR;
 
-namespace DotnetChallenge.Application.Queries
+namespace DotnetChallenge.Application.GetProductById.Queries
 {
     public class GetProductByIdQuery : IRequest<ProductDto>
     {

@@ -5,15 +5,15 @@ using DotnetChallenge.Domain.Entities;
 
 namespace DotnetChallenge.Application.Mappings
 {
-    public class AutoMapperProfile : Profile 
+    public class TestAutoMapperProfile : Profile 
     {
-        public AutoMapperProfile() 
+        public TestAutoMapperProfile() 
         {
 
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.StatusName, opt => opt.MapFrom<ProductStatusResolver>());
+                .ForMember(dest => dest.StatusName, opt => opt.MapFrom<FakeProductStatusResolver>());
 
             CreateMap<CreateProductCommand, Product>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
