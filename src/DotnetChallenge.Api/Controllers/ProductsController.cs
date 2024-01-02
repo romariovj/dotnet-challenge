@@ -31,6 +31,13 @@ namespace DotnetChallenge.Api.Controllers
             var product = await _mediator.Send(command);
             return Ok(product);
         }
-        
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
+        {
+            var product = await _mediator.Send(command);
+            return Ok(product);
+        }
+
     }
 }

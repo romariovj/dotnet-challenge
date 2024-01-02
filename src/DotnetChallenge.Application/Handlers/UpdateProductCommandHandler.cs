@@ -7,22 +7,22 @@ using MediatR;
 
 namespace DotnetChallenge.Application.Handlers
 {
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductDto>
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, ProductDto>
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
 
-        public CreateProductCommandHandler(IProductRepository repository, IMapper mapper)
+        public UpdateProductCommandHandler(IProductRepository repository, IMapper mapper)
         {
             _repository = repository;
             _mapper = mapper;
         }
 
-        public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+        public async Task<ProductDto> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
         {
             var domainProduct = _mapper.Map<Product>(request);
-            var result = await _repository.CreateAsync(domainProduct);
-            return _mapper.Map<ProductDto>(result);
+            Product? product = await _repository.UpdateAsync(domainProduct);
+            return _mapper.Map<ProductDto>(product);
         }
     }
 }

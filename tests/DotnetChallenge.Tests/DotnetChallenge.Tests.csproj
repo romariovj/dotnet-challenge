@@ -29,7 +29,6 @@
     <Folder Include="IntegrationTests\Api\" />
     <Folder Include="IntegrationTests\Application\" />
     <Folder Include="IntegrationTests\Infrastructure\" />
-    <Folder Include="UnitTests\Domain\" />
   </ItemGroup>
 
   <ItemGroup>

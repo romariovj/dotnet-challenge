@@ -91,5 +91,38 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
             // Asset
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
         }
+
+        [Fact]
+        public async Task UpdateProduct_WithValidItem_ReturnProductDto()
+        {
+            // Arrange
+            var productDto = new ProductDto()
+            {
+                Id = 1,
+                Name = "Producto",
+                Price = 15.2m,
+            };
+
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CreateProductCommand>(), default))
+                        .ReturnsAsync(productDto);
+
+            var command = new UpdateProductCommand()
+            {
+                Id= 1,
+                Name = "Producto",
+                Description = "Descripcion",
+                Price = 15.2m,
+                Status = 1,
+                Stock = 25
+            };
+
+            var controller = new ProductsController(_mediatorMock.Object);
+
+            // Act 
+            var result = await controller.UpdateProduct(command);
+
+            // Asset
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+        }
     }
 }
