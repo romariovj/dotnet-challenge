@@ -2,6 +2,7 @@
 using DotnetChallenge.Api.Middlewares;
 using DotnetChallenge.Application;
 using DotnetChallenge.Infrastructure;
+using DotnetChallenge.Infrastructure.Persistences;
 using Microsoft.OpenApi.Models;
 
 namespace DotnetChallenge.Api
@@ -16,6 +17,7 @@ namespace DotnetChallenge.Api
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddApplicationServices();
             builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddHostedService<DatabaseInitializerService>();
             builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
 
@@ -37,6 +39,8 @@ namespace DotnetChallenge.Api
                 });
             });
 
+
+            
 
 
             var app = builder.Build();
