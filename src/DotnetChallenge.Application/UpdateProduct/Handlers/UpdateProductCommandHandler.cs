@@ -32,7 +32,6 @@ namespace DotnetChallenge.Application.UpdateProduct.Handlers
                     ErrorMessage = error.ErrorMessage
                 });
 
-                // Devuelve una respuesta HTTP 400 con detalles del error en formato JSON
                 return new BadRequestObjectResult(new
                 {
                     Type = "https://tools.ietf.org/html/rfc9110#section-15.5.1",

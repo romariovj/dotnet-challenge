@@ -13,8 +13,6 @@ namespace DotnetChallenge.Application.CreateProduct.Commands
                 .NotEmpty().WithMessage("El nombre del producto es obligatorio.");
 
             RuleFor(request => request.Status)
-                .NotNull()
-                .NotEmpty()
                 .InclusiveBetween(0, 1).WithMessage("El estado del producto debe ser 0 o 1.");
 
 

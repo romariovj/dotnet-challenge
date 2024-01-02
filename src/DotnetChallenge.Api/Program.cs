@@ -2,6 +2,7 @@
 using DotnetChallenge.Api.Middlewares;
 using DotnetChallenge.Application;
 using DotnetChallenge.Infrastructure;
+using Microsoft.OpenApi.Models;
 
 namespace DotnetChallenge.Api
 {
@@ -21,7 +22,22 @@ namespace DotnetChallenge.Api
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "DotnetChallenge API",
+                    Version = "v1",
+                    Description = "Dotnet Challenge of Tekton",
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Romario Vargas",
+                        Email = "romariovargasj@gmail.com"
+                    },
+                });
+            });
+
+
 
             var app = builder.Build();
 

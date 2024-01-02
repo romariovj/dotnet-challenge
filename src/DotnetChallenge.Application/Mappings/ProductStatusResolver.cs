@@ -16,7 +16,8 @@ namespace DotnetChallenge.Application.Mappings
         public string Resolve(Product source, ProductDto destination, string destMember, ResolutionContext context)
         {
             Dictionary<int, string> statusList = _productStatusCacheService.GetCachedProductStatus();
-            return statusList[source.Status.Id];
+            bool hasItem = statusList.TryGetValue(source.Status.Id, out string statusName);
+            return hasItem ? statusName:"";
         }
     }
 }
