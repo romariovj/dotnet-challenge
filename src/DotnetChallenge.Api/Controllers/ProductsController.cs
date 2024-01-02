@@ -1,4 +1,4 @@
-﻿using DotnetChallenge.Application.Dtos;
+﻿using DotnetChallenge.Application.Commands;
 using DotnetChallenge.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +24,13 @@ namespace DotnetChallenge.Api.Controllers
             return Ok(products);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand command)
+        {
+            var product = await _mediator.Send(command);
+            return Ok(product);
+        }
         
     }
 }

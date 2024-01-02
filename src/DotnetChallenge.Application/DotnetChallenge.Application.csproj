@@ -16,10 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DotnetChallenge.Domain\DotnetChallenge.Domain.csproj" />
   </ItemGroup>
 

@@ -23,7 +23,7 @@ namespace DotnetChallenge.Infrastructure.Configurations
             var entityDb = _mapper.Map<TDatabase>(entityDomain);
             _context.Set<TDatabase>().Add(entityDb);
             await _context.SaveChangesAsync();
-            return _mapper?.Map<TDomain>(entityDomain);
+            return _mapper?.Map<TDomain>(entityDb);
         }
 
         public async Task<IReadOnlyList<TDomain>> FindAllAsync()

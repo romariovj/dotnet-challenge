@@ -1,15 +1,11 @@
 ﻿using DotnetChallenge.Api.Controllers;
+using DotnetChallenge.Application.Commands;
 using DotnetChallenge.Application.Dtos;
 using DotnetChallenge.Application.Queries;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotnetChallenge.Tests.UnitTests.Controller
 {
@@ -63,6 +59,37 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
                     products,
                     options => options.ComparingByMembers<ProductDto>()
                 );
+        }
+
+        [Fact]
+        public async Task CreateProduct_WithValidItem_ReturnProductDto()
+        {
+            // Arrange
+            var productDto = new ProductDto() {
+                Id = 1,
+                Name = "Producto",
+                Price = 15.2m,
+            };
+
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CreateProductCommand>(), default))
+                        .ReturnsAsync(productDto);
+
+            var command = new CreateProductCommand()
+            {
+                Name = "Producto",
+                Description = "Descripcion",
+                Price = 15.2m,
+                Status = 1,
+                Stock = 25
+            };
+
+            var controller = new ProductsController(_mediatorMock.Object);
+
+            // Act 
+            var result = await controller.CreateProduct(command);
+
+            // Asset
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
         }
     }
 }
