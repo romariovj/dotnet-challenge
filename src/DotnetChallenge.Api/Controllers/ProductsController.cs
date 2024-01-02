@@ -1,4 +1,5 @@
 ﻿using DotnetChallenge.Application.Commands;
+using DotnetChallenge.Application.Dtos;
 using DotnetChallenge.Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,19 @@ namespace DotnetChallenge.Api.Controllers
             var query = new GetAllProductsQuery();
             var products = await _mediator.Send(query);
             return Ok(products);
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetProductById([FromRoute] GetProductByIdQuery query)
+        {
+            ProductDto? product = await _mediator.Send(query);
+
+            if(product is null)
+            {
+                return NotFound();
+            }
+
+            return Ok(product);
         }
 
 

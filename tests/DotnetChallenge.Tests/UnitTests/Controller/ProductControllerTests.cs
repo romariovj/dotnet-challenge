@@ -103,7 +103,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
                 Price = 15.2m,
             };
 
-            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<CreateProductCommand>(), default))
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<UpdateProductCommand>(), default))
                         .ReturnsAsync(productDto);
 
             var command = new UpdateProductCommand()
@@ -120,6 +120,45 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
 
             // Act 
             var result = await controller.UpdateProduct(command);
+
+            // Asset
+            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+        }
+
+        [Fact]
+        public async Task GetProductById_WithUnexistingItem_ReturnNotFound()
+        {
+            // Arrange
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetProductByIdQuery>(), default))
+                        .ReturnsAsync((ProductDto)null);
+
+            var query = new GetProductByIdQuery()
+            {
+                Id = 1
+            };
+
+            var controller = new ProductsController(_mediatorMock.Object);
+
+            // Act 
+            var result = await controller.GetProductById(query);
+
+            // Asset
+            var notFoundResult = result.Should().BeOfType<NotFoundResult>().Subject;
+        }
+
+        [Fact]
+        public async Task GetProductById_WithExistingItem_ReturnOK()
+        {
+            // Arrange
+            var product = new ProductDto() { Id = 1, Name = "Product1", Price = 12.5m };
+
+            _mediatorMock.Setup(mediator => mediator.Send(It.IsAny<GetProductByIdQuery>(), default))
+                        .ReturnsAsync(product);
+
+            var controller = new ProductsController(_mediatorMock.Object);
+
+            // Act 
+            var result = await controller.GetProducts();
 
             // Asset
             var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
