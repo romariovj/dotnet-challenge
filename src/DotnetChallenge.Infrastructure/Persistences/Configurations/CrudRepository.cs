@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DotnetChallenge.Domain.Repositories;
-using DotnetChallenge.Infrastructure.Contexts;
+using DotnetChallenge.Infrastructure.Persistences.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace DotnetChallenge.Infrastructure.Configurations

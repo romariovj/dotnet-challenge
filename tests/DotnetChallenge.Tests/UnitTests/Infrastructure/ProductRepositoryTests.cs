@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DotnetChallenge.Domain.Entities;
-using DotnetChallenge.Infrastructure.Contexts;
-using DotnetChallenge.Infrastructure.DataEntities;
 using DotnetChallenge.Infrastructure.Mappings;
 using DotnetChallenge.Infrastructure.Persistences;
+using DotnetChallenge.Infrastructure.Persistences.Contexts;
+using DotnetChallenge.Infrastructure.Persistences.DataEntities;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 

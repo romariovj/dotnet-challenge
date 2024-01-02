@@ -2,8 +2,8 @@
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using DotnetChallenge.Infrastructure.Configurations;
-using DotnetChallenge.Infrastructure.Contexts;
-using DotnetChallenge.Infrastructure.DataEntities;
+using DotnetChallenge.Infrastructure.Persistences.Contexts;
+using DotnetChallenge.Infrastructure.Persistences.DataEntities;
 
 namespace DotnetChallenge.Infrastructure.Persistences
 {

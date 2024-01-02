@@ -1,4 +1,4 @@
-﻿using DotnetChallenge.Infrastructure.DataEntities;
+﻿using DotnetChallenge.Infrastructure.Persistences.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

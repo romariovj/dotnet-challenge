@@ -1,10 +1,10 @@
-﻿using DotnetChallenge.Infrastructure.DataEntities;
+﻿using DotnetChallenge.Infrastructure.Persistences.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace DotnetChallenge.Infrastructure.Contexts
+namespace DotnetChallenge.Infrastructure.Persistences.Contexts
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

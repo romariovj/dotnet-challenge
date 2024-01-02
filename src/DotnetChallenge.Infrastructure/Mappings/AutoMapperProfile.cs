@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DotnetChallenge.Domain.Entities;
-using DotnetChallenge.Infrastructure.DataEntities;
+using DotnetChallenge.Infrastructure.Persistences.DataEntities;
 
 namespace DotnetChallenge.Infrastructure.Mappings
 {

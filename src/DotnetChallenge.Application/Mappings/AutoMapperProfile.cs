@@ -13,7 +13,8 @@ namespace DotnetChallenge.Application.Mappings
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.StatusName, opt => opt.MapFrom<ProductStatusResolver>());
+                .ForMember(dest => dest.StatusName, opt => opt.MapFrom<ProductStatusResolver>())
+                .ForMember(dest=> dest.Discount, opt => opt.MapFrom<DiscountResolver>());
 
             CreateMap<CreateProductCommand, Product>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))

@@ -1,4 +1,4 @@
-﻿namespace DotnetChallenge.Infrastructure.DataEntities
+﻿namespace DotnetChallenge.Infrastructure.Persistences.DataEntities
 {
     public class ProductEntity
     {
