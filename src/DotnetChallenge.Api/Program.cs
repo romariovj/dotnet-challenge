@@ -1,7 +1,7 @@
 
+using DotnetChallenge.Api.Middlewares;
 using DotnetChallenge.Application;
 using DotnetChallenge.Infrastructure;
-using System.Reflection;
 
 namespace DotnetChallenge.Api
 {
@@ -23,6 +23,8 @@ namespace DotnetChallenge.Api
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ResponseTimeLoggingMiddleware>();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
