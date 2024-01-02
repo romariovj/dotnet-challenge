@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using DotnetChallenge.Application.Commands;
-using DotnetChallenge.Application.Handlers;
 using DotnetChallenge.Application.Mappings;
+using DotnetChallenge.Application.UpdateProduct.Commands;
+using DotnetChallenge.Application.UpdateProduct.Handlers;
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using FluentAssertions;

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using DotnetChallenge.Application.Dtos;
-using DotnetChallenge.Application.Handlers;
+using DotnetChallenge.Application.GetAllProducts.Handlers;
+using DotnetChallenge.Application.GetAllProducts.Queries;
 using DotnetChallenge.Application.Mappings;
-using DotnetChallenge.Application.Queries;
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using FluentAssertions;

@@ -1,8 +1,9 @@
 ﻿using DotnetChallenge.Api.Controllers;
-using DotnetChallenge.Application.Commands;
+using DotnetChallenge.Application.CreateProduct.Commands;
 using DotnetChallenge.Application.Dtos;
+using DotnetChallenge.Application.GetAllProducts.Queries;
 using DotnetChallenge.Application.GetProductById.Queries;
-using DotnetChallenge.Application.Queries;
+using DotnetChallenge.Application.UpdateProduct.Commands;
 using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -90,7 +91,7 @@ namespace DotnetChallenge.Tests.UnitTests.Controller
             var result = await controller.CreateProduct(command);
 
             // Asset
-            var okResult = result.Should().BeOfType<OkObjectResult>().Subject;
+            var okResult = result.Should().BeOfType<CreatedAtActionResult>().Subject;
         }
 
         [Fact]

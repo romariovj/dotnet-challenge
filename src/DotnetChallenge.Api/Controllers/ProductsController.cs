@@ -1,7 +1,8 @@
-﻿using DotnetChallenge.Application.Commands;
+﻿using DotnetChallenge.Application.CreateProduct.Commands;
 using DotnetChallenge.Application.Dtos;
+using DotnetChallenge.Application.GetAllProducts.Queries;
 using DotnetChallenge.Application.GetProductById.Queries;
-using DotnetChallenge.Application.Queries;
+using DotnetChallenge.Application.UpdateProduct.Commands;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,15 +44,27 @@ namespace DotnetChallenge.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductCommand command)
         {
-            var product = await _mediator.Send(command);
-            return Ok(product);
+            var result = await _mediator.Send(command);
+
+            if (result is ActionResult<ProductDto> actionResult && actionResult.Result is BadRequestObjectResult badRequestResult)
+            {
+                return badRequestResult;
+            }
+
+            return CreatedAtAction(nameof(CreateProduct), new { id = result.Value.ProductId}, result.Value);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command)
         {
-            var product = await _mediator.Send(command);
-            return Ok(product);
+            var result = await _mediator.Send(command);
+
+            if (result is ActionResult<ProductDto> actionResult && actionResult.Result is BadRequestObjectResult badRequestResult)
+            {
+                return badRequestResult;
+            }
+
+            return Ok(result.Value);
         }
 
     }

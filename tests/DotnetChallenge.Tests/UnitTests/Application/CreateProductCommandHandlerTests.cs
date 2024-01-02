@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using DotnetChallenge.Application.Commands;
-using DotnetChallenge.Application.Handlers;
+using DotnetChallenge.Application.CreateProduct.Commands;
+using DotnetChallenge.Application.CreateProduct.Handlers;
 using DotnetChallenge.Application.Mappings;
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;

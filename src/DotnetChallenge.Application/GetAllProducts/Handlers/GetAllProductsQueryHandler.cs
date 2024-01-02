@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using DotnetChallenge.Application.Dtos;
-using DotnetChallenge.Application.Queries;
+using DotnetChallenge.Application.GetAllProducts.Queries;
 using DotnetChallenge.Domain.Entities;
 using DotnetChallenge.Domain.Repositories;
 using MediatR;
 
-namespace DotnetChallenge.Application.Handlers
+namespace DotnetChallenge.Application.GetAllProducts.Handlers
 {
     public class GetAllProductsQueryHandler : IRequestHandler<GetAllProductsQuery, List<ProductDto>>
     {

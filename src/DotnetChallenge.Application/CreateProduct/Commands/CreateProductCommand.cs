@@ -1,9 +1,10 @@
 ﻿using DotnetChallenge.Application.Dtos;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
-namespace DotnetChallenge.Application.Commands
+namespace DotnetChallenge.Application.CreateProduct.Commands
 {
-    public class CreateProductCommand : IRequest<ProductDto>
+    public class CreateProductCommand : IRequest<ActionResult<ProductDto>>
     {
         public string Name { get; set; }
         public int Status { get; set; }
